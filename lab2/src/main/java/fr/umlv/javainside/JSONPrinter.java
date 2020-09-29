@@ -28,7 +28,7 @@ public class JSONPrinter {
     public static String toJSON(Record record) {
         var components = record.getClass().getRecordComponents();
         return "{" +Arrays.stream(components)
-                .map(x -> "\"" + x.getName() + "\":" + invokeAccessor(x.getAccessor(), record))
+                .map(x -> "\"" + x.getName() + "\": " + invokeAccessor(x.getAccessor(), record))
                 .collect(Collectors.joining(",")) + "}";
     }
 
@@ -61,5 +61,7 @@ public class JSONPrinter {
         System.out.println(toJSON(person));
         var alien = new Alien(100, "Saturn");
         System.out.println(toJSON(alien));
+        var book = new Book("book-title", 1999);
+        System.out.println(toJSON(book));
     }
 }
