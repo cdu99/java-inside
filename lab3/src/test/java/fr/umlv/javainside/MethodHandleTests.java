@@ -86,4 +86,17 @@ public class MethodHandleTests {
                 })
         );
     }
+
+    @Test
+    public void insertAndInvokeStaticTest() throws Throwable {
+        var lookup = MethodHandles.lookup();
+        var methodHandle = lookup.findStatic(Integer.class, "parseInt", MethodType.methodType(int.class, String.class));
+        var methodHandleCopy = MethodHandles.insertArguments(methodHandle, 0, "123");
+        Assertions.assertAll(
+                () -> assertEquals(123, (Integer) methodHandleCopy.invoke()),
+                () -> Assertions.assertThrows(WrongMethodTypeException.class, () -> {
+                    var s = (String) methodHandleCopy.invokeExact();
+                })
+        );
+    }
 }
