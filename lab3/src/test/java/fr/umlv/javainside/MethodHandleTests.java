@@ -150,4 +150,15 @@ public class MethodHandleTests {
                 })
         );
     }
+
+    @Test
+    public void invokeExactConstantTest() throws NoSuchMethodException, IllegalAccessException {
+        var methodHandle = MethodHandles.constant(int.class, 42);
+        Assertions.assertAll(
+                () -> assertEquals(42, (Integer) methodHandle.asType(MethodType.methodType(Integer.class)).invokeExact()),
+                () -> Assertions.assertThrows(WrongMethodTypeException.class, () -> {
+                    var s = (String) methodHandle.invokeExact();
+                })
+        );
+    }
 }
