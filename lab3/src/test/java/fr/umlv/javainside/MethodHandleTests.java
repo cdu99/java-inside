@@ -99,4 +99,17 @@ public class MethodHandleTests {
                 })
         );
     }
+
+    @Test
+    public void bindToAndInvokeVirtualTest() throws NoSuchMethodException, IllegalAccessException {
+        var lookup = MethodHandles.lookup();
+        var methodHandle = lookup.findStatic(Integer.class, "parseInt", MethodType.methodType(int.class, String.class));
+        var methodHandleCopy = methodHandle.bindTo("123");
+        Assertions.assertAll(
+                () -> assertEquals(123, (Integer) methodHandleCopy.invoke()),
+                () -> Assertions.assertThrows(WrongMethodTypeException.class, () -> {
+                    var s = (String) methodHandleCopy.invokeExact();
+                })
+        );
+    }
 }
