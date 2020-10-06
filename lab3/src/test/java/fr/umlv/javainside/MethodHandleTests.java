@@ -112,4 +112,17 @@ public class MethodHandleTests {
                 })
         );
     }
+
+    @Test
+    public void dropAndInvokeStaticTest() throws NoSuchMethodException, IllegalAccessException {
+        var lookup = MethodHandles.lookup();
+        var methodHandle = lookup.findStatic(Integer.class, "parseInt", MethodType.methodType(int.class, String.class));
+        var methodHandleCopy = MethodHandles.dropArguments(methodHandle, 0, String.class);
+        Assertions.assertAll(
+                () -> assertEquals(123, (int) methodHandleCopy.invokeExact("Dummy", "123")),
+                () -> Assertions.assertThrows(WrongMethodTypeException.class, () -> {
+                    var s = (String) methodHandleCopy.invokeExact("Dummy", "123");
+                })
+        );
+    }
 }
