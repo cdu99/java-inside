@@ -138,4 +138,16 @@ public class MethodHandleTests {
                 })
         );
     }
+
+    @Test
+    public void asTypeAndInvokeExactStaticTest() throws NoSuchMethodException, IllegalAccessException {
+        var lookup = MethodHandles.lookup();
+        var methodHandle = lookup.findStatic(Integer.class, "parseInt", MethodType.methodType(int.class, String.class));
+        Assertions.assertAll(
+                () -> assertEquals(555, (Integer) methodHandle.asType(MethodType.methodType(Integer.class, String.class)).invokeExact("555")),
+                () -> Assertions.assertThrows(WrongMethodTypeException.class, () -> {
+                    var s = (String) methodHandle.invokeExact("555");
+                })
+        );
+    }
 }
