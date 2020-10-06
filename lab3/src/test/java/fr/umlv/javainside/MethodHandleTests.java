@@ -72,4 +72,18 @@ public class MethodHandleTests {
                 })
         );
     }
+
+    @Test
+    public void invokeVirtualTest() throws Throwable {
+        var lookup = MethodHandles.lookup();
+        var methodHandle = lookup.findVirtual(String.class, "toUpperCase", MethodType.methodType(String.class));
+        var result = (String) methodHandle.invokeExact("bonjour");
+        assertEquals("BONJOUR" ,result);
+        Assertions.assertAll(
+                () -> assertEquals("BONSOIR", (Object) methodHandle.invoke("bonsoir")),
+                () -> Assertions.assertThrows(WrongMethodTypeException.class, () -> {
+                    var s = (Double) methodHandle.invokeExact("BONJOUR");
+                })
+        );
+    }
 }
