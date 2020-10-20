@@ -62,7 +62,8 @@ public class StringMatcher {
             var test = insertArguments(EQUALS, 1, text);
             var target = dropArguments(constant(int.class, index), 0, String.class);
 
-            var guard = guardWithTest(test, target, getTarget());
+            var guard = guardWithTest(test, target,
+                    new InliningCache(mapping).dynamicInvoker());
 
             setTarget(guard);
             return index;
