@@ -43,13 +43,13 @@ public class StringMatcherTest {
         );
     }
 
-//    @Test
-//    public void matchUsingHashCodes() {
-//        var cases = Map.of("foo", 1, "bar", 2, "baz", 3);
-//        var mh = StringMatcher.matchUsingHashCodes(cases);
-//        assertAll(
-//                () -> testMHWithCases(mh, cases),
-//                () -> testMHWithUnknownCase(mh, List.of("batman", "joker", "robin"))
-//        );
-//    }
+    @Test
+    public void matchUsingHashCodes() {
+        var cases = Map.of("foo", 1, "bar", 2, "baz", 3);
+        var mh = StringMatcher.matchUsingHashCodes(cases);
+        assertAll(
+                () -> testMHWithCases(mh, cases),
+                () -> testMHWithUnknownCase(mh, List.of("batman", "joker", "robin"))
+        );
+    }
 }

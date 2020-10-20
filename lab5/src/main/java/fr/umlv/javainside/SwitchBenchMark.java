@@ -19,7 +19,7 @@ public class SwitchBenchMark {
 
     private static final MethodHandle MATCH_WITH_GWTS = StringMatcher.matchWithGWTs(CASES);
     private static final MethodHandle MATCH_INLINE_CACHE = StringMatcher.matchWithAnInliningCache(CASES);
-    //private static final MethodHandle MATCH_USING_HASHCODES = StringMatcher.matchUsingHashCodes(CASES);
+    private static final MethodHandle MATCH_USING_HASHCODES = StringMatcher.matchUsingHashCodes(CASES);
 
     @Benchmark
     public int match_with_gwts() throws Throwable {
@@ -44,4 +44,17 @@ public class SwitchBenchMark {
 
     // Benchmark                                  Mode  Cnt   Score   Error  Units
     // SwitchBenchMark.match_with_inlining_cache  avgt   15  20,488 ± 0,249  ns/op
+
+    @Benchmark
+    public int match_with_hash_codes() throws Throwable {
+        var sum = 0;
+        for (var text : TEXTS) {
+            sum += (int) MATCH_USING_HASHCODES.invokeExact(text);
+        }
+        return sum;
+    }
+
+    // Benchmark                              Mode  Cnt   Score   Error  Units
+    // SwitchBenchMark.match_with_hash_codes  avgt   15  14,215 ± 0,496  ns/op
+
 }

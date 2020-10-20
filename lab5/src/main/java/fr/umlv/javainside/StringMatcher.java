@@ -4,9 +4,11 @@ import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MutableCallSite;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static java.lang.invoke.MethodHandles.*;
 import static java.lang.invoke.MethodType.methodType;
+import static java.util.stream.Collectors.groupingBy;
 
 public class StringMatcher {
     private static final MethodHandle EQUALS;
@@ -68,5 +70,38 @@ public class StringMatcher {
             setTarget(guard);
             return index;
         }
+    }
+
+    private static final MethodHandle HASH_CODE;
+    static {
+        var lookup = lookup();
+        try {
+            HASH_CODE = lookup.findVirtual(String.class, "hashCode", methodType(int.class));
+        } catch (NoSuchMethodException | IllegalAccessException e) {
+            throw new AssertionError(e);
+        }
+    }
+
+    public static MethodHandle matchUsingHashCodes(Map<String, Integer> mapping) {
+        var hashMap =
+                mapping.keySet().stream().collect(groupingBy(String::hashCode));
+        int[] hashes = new int[hashMap.size()];
+        MethodHandle[] mhs = new MethodHandle[hashMap.size() + 1];
+
+        var index = 0;
+        for (var entry : hashMap.entrySet()) {
+            var hash = entry.getKey();
+            var strings = entry.getValue();
+
+            hashes[index] = hash;
+            var mh = matchWithAnInliningCache(strings.stream().
+                    collect(Collectors.toMap(s -> s, mapping::get)));
+            mhs[index] = dropArguments(mh, 0, int.class);
+            index++;
+        }
+
+            mhs[mhs.length - 1] = dropArguments(
+                    constant(int.class, -1), 0, int.class, String.class);
+        return foldArguments(LookupSwitchGenerator.lookupSwitch(hashes, mhs), HASH_CODE);
     }
 }
