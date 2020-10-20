@@ -1,166 +1,221 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-          
+            
+  
   
   
   <modelVersion>4.0.0</modelVersion>
-          
+            
+  
   
   
   <groupId>fr.umlv.javainside</groupId>
-          
+            
+  
   
   
   <artifactId>java-inside</artifactId>
-          
+            
+  
   
   
   <packaging>pom</packaging>
-          
+            
+  
   
   
   <version>1.0-SNAPSHOT</version>
-          
+            
+  
   
   
   <name>java-inside</name>
-      
+        
+  
   
   <modules>
-            
+                
+    
     
     <module>lab1</module>
-            
+                
+    
     
     <module>lab3</module>
-          
+              
+    
     
     <module>lab4</module>
+          
+    
+    <module>lab5</module>
       
   </modules>
-      
+        
+  
   
   <properties>
-            
+                
+    
     
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-          
+              
+  
   
   </properties>
-      
+        
+  
   
   <dependencies>
-            
+                
+    
     
     <dependency>
-                  
+                        
+      
       
       <groupId>org.junit.jupiter</groupId>
-                  
+                        
+      
       
       <artifactId>junit-jupiter-api</artifactId>
-                  
+                        
+      
       
       <version>5.7.0</version>
-                  
+                        
+      
       
       <scope>test</scope>
-                
+                      
+    
     
     </dependency>
-            
+                
+    
     
     <dependency>
-                  
+                        
+      
       
       <groupId>org.junit.jupiter</groupId>
-                  
+                        
+      
       
       <artifactId>junit-jupiter-engine</artifactId>
-                  
+                        
+      
       
       <version>5.7.0</version>
-                  
+                        
+      
       
       <scope>test</scope>
-                
+                      
+    
     
     </dependency>
-          
+              
+  
   
   </dependencies>
-      
+        
+  
   
   <build>
-            
-    
-    <plugins>
-                  
-      
-      <plugin>
-                        
-        
-        <groupId>org.apache.maven.plugins</groupId>
-                        
-        
-        <artifactId>maven-compiler-plugin</artifactId>
-                        
-        
-        <version>3.8.1</version>
-                        
-        
-        <configuration>
-                              
-          
-          <release>15</release>
-                              
-          
-          <source>15</source>
-                              
-          
-          <target>15</target>
-                              
-          
-          <compilerArgs>--enable-preview</compilerArgs>
-                            
-        
-        </configuration>
-                      
-      
-      </plugin>
-                  
-      
-      <plugin>
-                        
-        
-        <groupId>org.apache.maven.plugins</groupId>
-                        
-        
-        <artifactId>maven-surefire-plugin</artifactId>
-                        
-        
-        <version>3.0.0-M4</version>
-                        
-        
-        <configuration>
-                              
-          
-          <argLine>--enable-preview</argLine>
-                              
-          
-          <compilerArgs>--enable-preview</compilerArgs>
-                            
-        
-        </configuration>
-                      
-      
-      </plugin>
                 
     
-    </plugins>
+    
+    <plugins>
+                        
+      
+      
+      <plugin>
+                                
+        
+        
+        <groupId>org.apache.maven.plugins</groupId>
+                                
+        
+        
+        <artifactId>maven-compiler-plugin</artifactId>
+                                
+        
+        
+        <version>3.8.1</version>
+                                
+        
+        
+        <configuration>
+                                        
           
+          
+          <release>15</release>
+                                        
+          
+          
+          <source>15</source>
+                                        
+          
+          
+          <target>15</target>
+                                        
+          
+          
+          <compilerArgs>--enable-preview</compilerArgs>
+                                      
+        
+        
+        </configuration>
+                              
+      
+      
+      </plugin>
+                        
+      
+      
+      <plugin>
+                                
+        
+        
+        <groupId>org.apache.maven.plugins</groupId>
+                                
+        
+        
+        <artifactId>maven-surefire-plugin</artifactId>
+                                
+        
+        
+        <version>3.0.0-M4</version>
+                                
+        
+        
+        <configuration>
+                                        
+          
+          
+          <argLine>--enable-preview</argLine>
+                                        
+          
+          
+          <compilerArgs>--enable-preview</compilerArgs>
+                                      
+        
+        
+        </configuration>
+                              
+      
+      
+      </plugin>
+                      
+    
+    
+    </plugins>
+              
+  
   
   </build>
-    
+      
+
 
 </project>
